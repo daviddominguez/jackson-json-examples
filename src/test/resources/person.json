@@ -1,0 +1,34 @@
+{
+  "name": "name",
+  "last_name": "lastName",
+  "address": {
+    "address": "address",
+    "zipcode": "zipCode",
+    "city": "city",
+    "state": "state",
+    "tags": [
+      "tag1",
+      "tag2"
+    ],
+    "country": {
+      "country": "country",
+      "country_iso": "countryISO"
+    }
+  },
+  "birth_date": [
+    2017,
+    3,
+    30
+  ],
+  "age": 30,
+  "salary": 1,
+  "unknown_property": "unknown_property",
+  "job_description": {
+    "company": "company",
+    "position": "position",
+    "subdocument": {
+      "another": "another",
+      "one_more": "one_more"
+    }
+  }
+}
