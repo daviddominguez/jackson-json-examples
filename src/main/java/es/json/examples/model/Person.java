@@ -6,15 +6,18 @@ import com.google.common.base.Objects;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import static com.google.common.base.MoreObjects.toStringHelper;
 import static com.google.common.base.Objects.equal;
+import static es.json.examples.util.Maps.flatten;
+import static es.json.examples.util.Maps.unflatten;
 
 public class Person {
 
-    private String name;
+	private String name;
     private String lastName;
     private Address address;
 
@@ -23,7 +26,7 @@ public class Person {
     private Integer age;
     private BigDecimal salary;
 
-    private Map<String, Object> other = new HashMap<>();
+    private SortedMap<String, Object> unknown = new TreeMap<>();
 
     public Person() {
 	}
@@ -35,7 +38,7 @@ public class Person {
 		setBirthDate(builder.birthDate);
 		setAge(builder.age);
 		setSalary(builder.salary);
-		other = builder.other;
+		unknown = builder.unknown;
 	}
 
 	public String getName() {
@@ -88,31 +91,12 @@ public class Person {
 
     @JsonAnyGetter
     public Map<String,Object> any() {
-        return other;
+        return unflatten("", unknown);
     }
 
-    private boolean isDocument(String key) {
-    	for (String entryKey : other.keySet()) {
-    		if (entryKey.endsWith(key))
-    			return false;
-		}
-		return true;
-	}
-
 	@JsonAnySetter
-    public void set(String name, Object value) {
-		if (value instanceof Map) {
-			Map<String, Object> values = (Map) value;
-			for (Map.Entry<String, Object> entry : values.entrySet()) {
-				set(name + "." + entry.getKey(), entry.getValue());
-			}
-		}
-		else if (value instanceof String) {
-			other.put(name, value);
-		}
-		else {
-			throw new IllegalArgumentException();
-		}
+    public void set(String property, Object value) {
+		flatten(unknown, property, value);
     }
 
     @Override
@@ -126,12 +110,12 @@ public class Person {
                 equal(birthDate, person.birthDate) &&
                 equal(age, person.age) &&
                 equal(salary, person.salary) &&
-				equal(other, person.other);
+				equal(unknown, person.unknown);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(super.hashCode(), name, lastName, address, birthDate, age, salary, other);
+        return Objects.hashCode(super.hashCode(), name, lastName, address, birthDate, age, salary, unknown);
     }
 
     @Override
@@ -143,7 +127,7 @@ public class Person {
                 .add("birthDate", birthDate)
                 .add("age", age)
                 .add("salary", salary)
-				.add("other", other)
+				.add("unknown", unknown)
                 .toString();
     }
 
@@ -154,7 +138,7 @@ public class Person {
 		private LocalDate birthDate;
 		private Integer age;
 		private BigDecimal salary;
-		private Map<String, Object> other;
+		private SortedMap<String, Object> unknown;
 
 		public Builder() {
 		}
@@ -189,8 +173,8 @@ public class Person {
 			return this;
 		}
 
-		public Builder other(Map<String, Object> other) {
-			this.other = other;
+		public Builder unknown(SortedMap<String, Object> unknown) {
+			this.unknown = unknown;
 			return this;
 		}
 

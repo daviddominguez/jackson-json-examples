@@ -22,13 +22,37 @@
   ],
   "age": 30,
   "salary": 1,
-  "unknown_property": "unknown_property",
-  "job_description": {
-    "company": "company",
-    "position": "position",
-    "subdocument": {
-      "another": "another",
-      "one_more": "one_more"
-    }
-  }
+  "partner": {
+    "phone": {
+      "number": "partner_phone_number",
+      "extension": "partner_phone_extension"
+    },
+    "birth_date": "partner_birthdate",
+    "name": "partner_name"
+  },
+  "job": {
+    "phone": {
+      "number": "company_phone",
+      "extension": "6"
+    },
+    "company": {
+      "address": {
+        "country": "company_address_country",
+        "zipCode": "company_address_zipCode",
+        "city": "company_address_city",
+        "street": {
+          "number": "company_address_street_number",
+          "name": "company_address_street_name",
+          "floor": "company_address_street_floor"
+        }
+      },
+      "name": "company_name"
+    },
+    "position": {
+      "responsibilities": "position_responsibilities",
+      "name": "position_name"
+    },
+    "email": "job_email"
+  },
+  "email": "personal_email"
 }
