@@ -1,21 +1,15 @@
 package es.json.examples.model;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.google.common.base.Objects;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.SortedMap;
-import java.util.TreeMap;
 
 import static com.google.common.base.MoreObjects.toStringHelper;
 import static com.google.common.base.Objects.equal;
-import static es.json.examples.util.Maps.flatten;
-import static es.json.examples.util.Maps.unflatten;
 
-public class Person {
+public class Person extends FlattenEntity {
 
 	private String name;
     private String lastName;
@@ -25,8 +19,6 @@ public class Person {
 
     private Integer age;
     private BigDecimal salary;
-
-    private SortedMap<String, Object> unknown = new TreeMap<>();
 
     public Person() {
 	}
@@ -38,7 +30,7 @@ public class Person {
 		setBirthDate(builder.birthDate);
 		setAge(builder.age);
 		setSalary(builder.salary);
-		unknown = builder.unknown;
+		setUnknown(builder.unknown);
 	}
 
 	public String getName() {
@@ -89,16 +81,6 @@ public class Person {
         this.salary = salary;
     }
 
-    @JsonAnyGetter
-    public Map<String,Object> any() {
-        return unflatten("", unknown);
-    }
-
-	@JsonAnySetter
-    public void set(String property, Object value) {
-		flatten(unknown, property, value);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,12 +92,12 @@ public class Person {
                 equal(birthDate, person.birthDate) &&
                 equal(age, person.age) &&
                 equal(salary, person.salary) &&
-				equal(unknown, person.unknown);
+				equal(getUnknown(), person.getUnknown());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(super.hashCode(), name, lastName, address, birthDate, age, salary, unknown);
+        return Objects.hashCode(super.hashCode(), name, lastName, address, birthDate, age, salary, getUnknown());
     }
 
     @Override
@@ -127,7 +109,7 @@ public class Person {
                 .add("birthDate", birthDate)
                 .add("age", age)
                 .add("salary", salary)
-				.add("unknown", unknown)
+				.add("unknown", getUnknown())
                 .toString();
     }
 
