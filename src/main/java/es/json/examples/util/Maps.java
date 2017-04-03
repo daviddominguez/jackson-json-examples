@@ -3,6 +3,7 @@ package es.json.examples.util;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 
 import static java.lang.String.format;
@@ -13,22 +14,10 @@ public class Maps {
 	private static final String PROPERTY_MAP_DELIMITER = ".";
 
 	public static void flatten(SortedMap<String, Object> map, String property, Object value) {
-		set(map, property, value);
-	}
-
-	public static Map<String, Object> flatten(SortedMap<String, Object> map) {
-		Map<String, Object> flattenedMap = new HashMap<>();
-		for (Map.Entry<String, Object> entry : map.entrySet()) {
-			set(flattenedMap, entry.getKey(), entry.getValue());
-		}
-		return flattenedMap;
-	}
-
-	private static void set(Map<String, Object> map, String property, Object value) {
 		if (value instanceof Map) {
 			Map<?, ?> values = (Map) value;
 			for (Map.Entry<?, ?> entry : values.entrySet()) {
-				set(map, format("%s.%s", property, entry.getKey()), entry.getValue());
+				flatten(map, format("%s.%s", property, entry.getKey()), entry.getValue());
 			}
 		}
 		else if (value instanceof String) {
@@ -39,6 +28,15 @@ public class Maps {
 			throw new IllegalArgumentException();
 		}
 	}
+
+	public static Map<String, Object> flatten(SortedMap<String, Object> map) {
+		SortedMap<String, Object> flattenedMap = new TreeMap<>();
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+			flatten(flattenedMap, entry.getKey(), entry.getValue());
+		}
+		return flattenedMap;
+	}
+
 	public static Map<String, Object> unflatten(String path, SortedMap<String, Object> subMap) {
 		Map<String, Object> map = new HashMap<>();
 		for (String entryKey : subMap.keySet()) {
