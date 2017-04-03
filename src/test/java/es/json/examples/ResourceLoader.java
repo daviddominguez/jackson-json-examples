@@ -1,4 +1,4 @@
-package es.json.examples.util;
+package es.json.examples;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -9,6 +9,7 @@ import static java.nio.file.Paths.get;
 
 public class ResourceLoader {
 	public static String loadResourceInOneLine (String fileName) throws IOException, URISyntaxException {
-		return lines(get(getResource(fileName).toURI())).map(s-> s.replaceAll("\\s", "")).reduce("", (a, b) -> (a + b));
+		return lines(get(getResource(fileName).toURI())).map(s-> s.replaceAll("\\s", ""))
+				.reduce("", (a, b) -> (a + b));
 	}
 }

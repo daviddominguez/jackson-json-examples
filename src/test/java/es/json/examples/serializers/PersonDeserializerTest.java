@@ -3,7 +3,7 @@ package es.json.examples.serializers;
 import es.json.examples.AbstractSpringTest;
 import es.json.examples.model.Person;
 import es.json.examples.serializers.impl.PersonDeserializerImpl;
-import es.json.examples.util.ResourceLoader;
+import es.json.examples.ResourceLoader;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
