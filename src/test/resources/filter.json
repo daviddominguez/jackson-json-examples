@@ -1,0 +1,58 @@
+{
+  "and": [
+    {
+      "and": [
+        {
+          "eq": {
+            "eq_property_string": "eq_property_string_value"
+          }
+        },
+        {
+          "eq": {
+            "eq_property_boolean": true
+          }
+        },
+        {
+          "neq": {
+            "neq_property_string": "neq_property_string_value"
+          }
+        },
+        {
+          "gt": {
+            "gt_property_double": 125.6
+          }
+        },
+        {
+          "gte": {
+            "gte_property_int": 10
+          }
+        },
+        {
+          "lt": {
+            "lt_property_long": 245643456435345
+          }
+        },
+        {
+          "lte": {
+            "lte_property_double": 45e5
+          }
+        }
+      ]
+    },
+    {
+      "like": {
+        "like_property_string": "NORMAL"
+      }
+    },
+    {
+      "in": {
+        "in_property_string": ["value1", "value2", "value3", "value4", "value5"]
+      }
+    },
+    {
+      "nin": {
+        "in_property_int": [1, 2, 3, 4, 5]
+      }
+    }
+  ]
+}
