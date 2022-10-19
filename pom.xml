@@ -13,7 +13,7 @@
 
         <spring.framework.version>5.3.19</spring.framework.version>
         <guava.version>21.0</guava.version>
-        <jackson.version>2.12.6.1</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
         <slf4j.version>1.7.21</slf4j.version>
         <logback.version>1.2.0</logback.version>
         <junit.version>4.13.1</junit.version>
