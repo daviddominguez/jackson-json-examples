@@ -11,7 +11,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <spring.framework.version>6.1.14</spring.framework.version>
+        <spring.framework.version>6.1.20</spring.framework.version>
         <guava.version>21.0</guava.version>
         <jackson.version>2.13.4.2</jackson.version>
         <slf4j.version>1.7.21</slf4j.version>
